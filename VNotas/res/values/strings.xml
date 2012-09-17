@@ -1,0 +1,21 @@
+<resources>
+
+    <string name="app_name">VNotas</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_run">vNotas</string><string name="title_activity_view_posts">ViewPosts</string>
+    <string name="main_note_title">Write a Note to be posted in your wall</string>
+    <string name="main_note_boton">Submit</string>
+    <string name="main_note_hint">Post note to wall</string>
+    <string name="main_note_clear">Clear</string>
+    
+    
+    <string name="main_note_alert">You must enter a text!</string>
+    <string name="main_note_sumbitAlert">Note submitted succesfully!</string>
+    <string name="main_note_clearAlert">note cleared</string><string name="post_note_title">Posts ever submitted</string>
+    <string name="post_note_selectAll">Toggle selection</string>
+    <string name="post_note_clear">Clear</string>
+    <string name="post_note_hint">delete the selected ones</string>
+    <color name="post_note_tablebackground">#CCCCCC</color>
+    <color name="black">#000000</color>
+
+</resources>
