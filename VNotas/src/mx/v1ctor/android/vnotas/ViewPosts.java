@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TableRow.LayoutParams;
@@ -43,6 +44,7 @@ public class ViewPosts extends Activity {
 	private PropertiesBD pbd;
 	private TextView text_title;
 	private boolean tablaCargada;
+	private ScrollView scroll;
 
 	private LinkedList<BDObject> listaNotas;
 	private String title;
@@ -187,6 +189,7 @@ public class ViewPosts extends Activity {
 
 		gestureDetector = new GestureDetector(new MyGestureDetector());
 		View postView = (View) findViewById(R.id.postView);
+		
 
 		postView.setOnTouchListener(new View.OnTouchListener() {
 			public boolean onTouch(View v, MotionEvent event) {
@@ -198,6 +201,15 @@ public class ViewPosts extends Activity {
 		});
 
 		tabla.setOnTouchListener(new View.OnTouchListener() {
+			public boolean onTouch(View v, MotionEvent event) {
+				if (gestureDetector.onTouchEvent(event)) {
+					return true;
+				}
+				return false;
+			}
+		});
+		
+		scroll.setOnTouchListener(new View.OnTouchListener() {
 			public boolean onTouch(View v, MotionEvent event) {
 				if (gestureDetector.onTouchEvent(event)) {
 					return true;
@@ -221,6 +233,7 @@ public class ViewPosts extends Activity {
 
 		clear = (Button) findViewById(R.id.post_clear);
 		selectAll = (Button) findViewById(R.id.post_selectAll);
+		scroll = (ScrollView) findViewById(R.id.scroll);
 
 		title = text_title.getText().toString();
 	}
