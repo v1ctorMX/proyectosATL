@@ -25,6 +25,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TableRow.LayoutParams;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ViewPosts extends Activity {
 
@@ -46,6 +47,7 @@ public class ViewPosts extends Activity {
 	private LinkedList<BDObject> listaNotas;
 	private String title;
 	private NotesCollection notes;
+	long n = 0; // número de registros
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -69,20 +71,21 @@ public class ViewPosts extends Activity {
 		clear.setOnClickListener(new OnClickListener() {
 
 			public void onClick(View v) {
+				if (n > 0) {
 
-				for (BDObject object : listaNotas) {
-					NoteBean nb = (NoteBean) object;
+					for (BDObject object : listaNotas) {
+						NoteBean nb = (NoteBean) object;
 
-					if (nb.isFlag()) {
-						nb.delete();
-					}// borramos esa nota
+						if (nb.isFlag()) {
+							nb.delete();
+						}// borramos esa nota
 
+					}
+					// cargamos nuevamente la tabla de disco
+
+					tablaCargada = false;
+					populateTable();
 				}
-				//cargamos nuevamente la tabla de disco
-
-				tablaCargada = false;
-				populateTable();
-
 			}
 		});
 
@@ -90,14 +93,15 @@ public class ViewPosts extends Activity {
 
 			public void onClick(View v) {
 
-				for (BDObject object : listaNotas) {
-					NoteBean nb = (NoteBean) object;
-					nb.setFlag(!nb.isFlag());
-					//Log.d("SET FLAG " + nb.getId(), "" + nb.isFlag() );
+				if (n > 0) {
+					for (BDObject object : listaNotas) {
+						NoteBean nb = (NoteBean) object;
+						nb.setFlag(!nb.isFlag());
+						// Log.d("SET FLAG " + nb.getId(), "" + nb.isFlag() );
+					}
+
+					populateTable();
 				}
-
-				populateTable();
-
 			}
 		});
 	}
@@ -107,61 +111,70 @@ public class ViewPosts extends Activity {
 	 */
 	private void populateTable() {
 
-		//Log.d("TABLE", "POBLANDO LA TABLA");
+		// Log.d("TABLE", "POBLANDO LA TABLA");
 
-		long n = notes.count();
+		n = notes.count();
 		text_title.setText(title + " [" + n + "]");
 
-		// Si la tabla no se ha leido de BD, se recupera
-		if(!tablaCargada){
-			listaNotas = notes.retrieveN(n);
-		}
-
-		tabla.removeAllViews();
-
-		int i = 0;
-		for (BDObject object : listaNotas) {
-
-			final NoteBean nb = (NoteBean) object;
-
-			TableRow tr = new TableRow(getApplicationContext());
-			TextView tv = new TextView(getApplicationContext());
-			CheckBox cb = new CheckBox(getApplicationContext());
-			tv.setTextColor(getResources().getColor(R.color.black));
-
-			if (i % 2 == 0) {
-				tr.setBackgroundResource(R.color.post_note_tablebackground);
+		if (n > 0) {
+			// Si la tabla no se ha leido de BD, se recupera
+			if (!tablaCargada) {
+				listaNotas = notes.retrieveN(n);
 			}
 
-			tv.setText("[" + nb.getId() + "] > " + nb.getNote());
+			tabla.removeAllViews();
 
-			cb.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			int i = 0;
+			for (BDObject object : listaNotas) {
 
-				public void onCheckedChanged(CompoundButton buttonView,
-						boolean isChecked) {
-					nb.setFlag(isChecked);
+				final NoteBean nb = (NoteBean) object;
+
+				TableRow tr = new TableRow(getApplicationContext());
+				TextView tv = new TextView(getApplicationContext());
+				CheckBox cb = new CheckBox(getApplicationContext());
+				tv.setTextColor(getResources().getColor(R.color.black));
+
+				if (i % 2 == 0) {
+					tr.setBackgroundResource(R.color.post_note_tablebackground);
 				}
-			});
-			cb.setChecked(nb.isFlag());
-			//Log.d("FLAG " + nb.getId(), "" + nb.isFlag() );
 
+				tv.setText("[" + nb.getId() + "] > " + nb.getNote());
 
-			LayoutParams paramsTV = new TableRow.LayoutParams(
-					LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 3f);
-			LayoutParams paramsCB = new TableRow.LayoutParams(
-					LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 1f);
-			tv.setLayoutParams(paramsTV);
-			cb.setLayoutParams(paramsCB);
+				cb.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
-			// AÑADIMOS A LA TABLA
-			tr.addView(tv);
-			tr.addView(cb);
-			tabla.addView(tr);
-			i++;
-		}// for
-		
-		tablaCargada = true;
+					public void onCheckedChanged(CompoundButton buttonView,
+							boolean isChecked) {
+						nb.setFlag(isChecked);
+					}
+				});
+				cb.setChecked(nb.isFlag());
+				// Log.d("FLAG " + nb.getId(), "" + nb.isFlag() );
 
+				LayoutParams paramsTV = new TableRow.LayoutParams(
+						LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT,
+						3f);
+				LayoutParams paramsCB = new TableRow.LayoutParams(
+						LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT,
+						1f);
+				tv.setLayoutParams(paramsTV);
+				cb.setLayoutParams(paramsCB);
+
+				// AÑADIMOS A LA TABLA
+				tr.addView(tv);
+				tr.addView(cb);
+				tabla.addView(tr);
+				i++;
+
+			}// for
+
+			tablaCargada = true;
+
+			// n no tiene registros
+		} else {
+			Toast.makeText(getApplicationContext(),
+					getString(R.string.post_note_alert), Toast.LENGTH_SHORT)
+					.show();
+		}
 	}
 
 	/**
@@ -169,7 +182,7 @@ public class ViewPosts extends Activity {
 	 */
 	private void initiateGestures() {
 
-		//Log.d("DEBUG", "INICIANDO GESTURAS");
+		// Log.d("DEBUG", "INICIANDO GESTURAS");
 
 		gestureDetector = new GestureDetector(new MyGestureDetector());
 		View postView = (View) findViewById(R.id.postView);
@@ -195,7 +208,7 @@ public class ViewPosts extends Activity {
 	}
 
 	private void initiateInstances() {
-		//Log.d("DEBUG", "INICIANDO COMPONENTES DEL SEGUNDO");
+		// Log.d("DEBUG", "INICIANDO COMPONENTES DEL SEGUNDO");
 
 		bdoh = new BDOpenHelper(getApplicationContext());
 		sqldb = bdoh.getWritableDatabase();
@@ -213,7 +226,7 @@ public class ViewPosts extends Activity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		//getMenuInflater().inflate(R.menu.activity_view_posts, menu);
+		getMenuInflater().inflate(R.menu.activity_view_posts, menu);
 		return true;
 	}
 
@@ -229,7 +242,7 @@ public class ViewPosts extends Activity {
 		public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
 				float velocityY) {
 
-			//Log.d("FLING", "Iniciando el gesto");
+			// Log.d("FLING", "Iniciando el gesto");
 
 			Intent intent = new Intent(ViewPosts.this.getBaseContext(),
 					Run.class);

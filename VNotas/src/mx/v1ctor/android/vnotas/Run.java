@@ -123,7 +123,7 @@ public class Run extends Activity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		//getMenuInflater().inflate(R.menu.activity_run, menu);
+		getMenuInflater().inflate(R.menu.activity_run, menu);
 		return true;
 	}
 
