@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="bd_tabla">NOTES</string>
+    <string name="bd_idNote">nIdNote</string>
+    <string name="bd_tTexto">tNOTE</string>
+    <string name="bd_baseSQL">notes.sql</string>
+    <string name="bd_version">1</string>
+    <string name="bd_baseDB">NOTES.db</string>
+    
+</resources>

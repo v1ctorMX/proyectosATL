@@ -1,0 +1,27 @@
+<resources>
+
+    <string name="app_name">VNotas</string>
+    <string name="menu_settings">Configuración</string>
+    <string name="title_activity_run">vNotas</string><string name="title_activity_view_posts">Ver notas</string>
+    
+   
+    <string name="main_note_title">Escribe una nota que vaya a tu muro</string>
+    <string name="main_note_boton">Entregar</string>
+    <string name="main_note_hint">Coloca una nota en el muro</string>
+    <string name="main_note_clear">Borrar</string>
+    <string name="main_note_alert">¡Debes ingresar un texto!</string>
+    <string name="main_note_sumbitAlert">¡Nota entregada exitosamente!</string>
+    <string name="main_note_clearAlert">Nota borrada</string>
+    <string name="post_note_title">Notas entregadas</string>
+    
+    <string name="post_note_selectAll">Invierte selección</string>
+    <string name="post_note_clear">Borra</string>
+    <string name="post_note_hint">Borra los elementos seleccionados</string>
+    <string name="post_note_alert">¡No se encontraron datos!</string>
+
+    
+    <color name="post_note_tablebackground">#CCCCCC</color>
+    <color name="black">#000000</color>
+
+
+</resources>

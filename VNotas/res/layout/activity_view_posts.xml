@@ -1,8 +1,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/postView"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" 
-    android:id="@+id/postView">
+    android:layout_height="match_parent" >
 
     <TextView
         android:id="@+id/postTitle"
@@ -16,23 +16,6 @@
         android:text="@string/post_note_title"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <TableLayout
-        android:id="@+id/tabla"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/linearLayout_post"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/postTitle" >
-
-        <TableRow
-            android:id="@+id/tableRow1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-        </TableRow>
-        
-    </TableLayout>
-
     <LinearLayout
         android:id="@+id/linearLayout_post"
         android:layout_width="wrap_content"
@@ -45,20 +28,41 @@
             android:id="@+id/post_selectAll"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/post_note_selectAll" 
-            android:hint="@string/post_note_hint"
             android:layout_weight="1"
-            />
+            android:hint="@string/post_note_hint"
+            android:text="@string/post_note_selectAll" />
 
         <Button
             android:id="@+id/post_clear"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/post_note_clear"
-            android:hint="@string/post_note_hint" 
             android:layout_weight="1"
-            />
-
+            android:hint="@string/post_note_hint"
+            android:text="@string/post_note_clear" />
     </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/linearLayout_post"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/postTitle" >
+
+        <TableLayout
+            android:id="@+id/tabla"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5sp"
+            android:scrollbarAlwaysDrawVerticalTrack="true" >
+
+            <TableRow
+                android:id="@+id/tableRow1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+            </TableRow>
+        </TableLayout>
+    </ScrollView>
 
 </RelativeLayout>

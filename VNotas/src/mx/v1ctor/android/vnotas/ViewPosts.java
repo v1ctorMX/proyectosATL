@@ -171,6 +171,7 @@ public class ViewPosts extends Activity {
 
 			// n no tiene registros
 		} else {
+			tabla.removeAllViews();
 			Toast.makeText(getApplicationContext(),
 					getString(R.string.post_note_alert), Toast.LENGTH_SHORT)
 					.show();

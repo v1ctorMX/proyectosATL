@@ -10,7 +10,8 @@
     <string name="main_note_clear">Clear</string>
     <string name="main_note_alert">You must enter a text!</string>
     <string name="main_note_sumbitAlert">Note submitted succesfully!</string>
-    <string name="main_note_clearAlert">note cleared</string><string name="post_note_title">Posts ever submitted</string>
+    <string name="main_note_clearAlert">note cleared</string>
+    <string name="post_note_title">Posts submitted</string>
     
     <string name="post_note_selectAll">Toggle selection</string>
     <string name="post_note_clear">Clear</string>
