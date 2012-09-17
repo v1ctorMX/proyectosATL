@@ -61,6 +61,9 @@ public class ViewPosts extends Activity {
 
 	}
 
+	/**
+	 * Inicia los escuchas de botones
+	 */
 	private void initiateButtons() {
 
 		clear.setOnClickListener(new OnClickListener() {
@@ -75,7 +78,9 @@ public class ViewPosts extends Activity {
 					}// borramos esa nota
 
 				}
+				//cargamos nuevamente la tabla de disco
 
+				tablaCargada = false;
 				populateTable();
 
 			}
@@ -208,7 +213,7 @@ public class ViewPosts extends Activity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.activity_view_posts, menu);
+		//getMenuInflater().inflate(R.menu.activity_view_posts, menu);
 		return true;
 	}
 
